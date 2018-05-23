@@ -1,51 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+Este proyecto fue creado con [Create React App (CRA)](https://github.com/facebookincubator/create-react-app).
 
-## Folder Structure
+# Contador
 
-After creation, your project should look like this:
+El contador es un componente de una tecnología llamada React, que tiene
 
+- una estructura contador, con un valor numérico entero
+- funciones para sumar o restar el contador
+- una parte visual en HTML, definida en la función render
+
+En funcional, un programa es una función o transformación que dado un dominio devuelve una imagen. 
+
+![images](images/funcional.png)
+
+En React, tenemos como origen un _state_: el estado de una aplicación, que es inicialmente un contador
+
+```javascript
+this.state = {
+    contador: 0
+}
 ```
-my-app/
-  README.md
-  node_modules/
-  package.json
-  public/
-    index.html
-    favicon.ico
-  src/
-    App.css
-    App.js
-    App.test.js
-    index.css
-    index.js
-    logo.svg
+
+Cuando se inicializa un estado, esto muestra (_renderiza_ la vista) HTML, que tiene dos links (tags _a href_) y un label (que no necesita un tag específico aunque podría ser un _span_ o un _p_ - párrafo):
+
+```html
+<div>
+    <a href="#" onClick={(event) => { this.restar() }}>-</a>
+    {this.state.contador}
+    <a href="#" onClick={(event) => { this.sumar() }}>+</a>
+</div>
 ```
 
-For the project to build, **these files must exist with exact filenames**:
+¿Qué ocurre cuando un usuario presiona el link? Se ejecuta el código del evento onClick, que si lo miramos bien
 
-* `public/index.html` is the page template;
-* `src/index.js` is the JavaScript entry point.
+```javascript
+(event) => { this.sumar() }
+```
 
-You can delete or rename the other files.
+no es otra cosa que una expresión lambda. Esto llama a la función sumar() 
 
-You may create subdirectories inside `src`. For faster rebuilds, only files inside `src` are processed by Webpack.<br>
-You need to **put any JS and CSS files inside `src`**, otherwise Webpack won’t see them.
+```javascript
+sumar() {
+    this.cambiarContador(this.state.contador + 1)
+}
 
-Only files inside `public` can be used from `public/index.html`.<br>
-Read instructions below for using assets from JavaScript and HTML.
+cambiarContador(n) {
+    this.setState({contador: n})
+}
+```
 
-You can, however, create more top-level directories.<br>
-They will not be included in the production build so you can use them for things like documentation.
+Lo que hace sumar() es **crear un nuevo estado**, a partir del estado actual: toma el valor del contador, le suma uno y lo inyecta al nuevo estado. No modifica el estado existente, sino que lo transforma:
 
-## Available Scripts
+estado { contador : 3 }  ======>  pasa a estado { contador : 4 }
 
-In the project directory, you can run:
+Vemos el diagrama:
 
-### `npm start`
+![images](images/flujo_react.png)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+¿Y por qué **reactiva**?
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Porque solo se modifica en el browser el valor que cambió, como vemos a continuación:
 
+![video](images/demo.gif)
