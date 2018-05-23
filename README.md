@@ -8,9 +8,14 @@ El contador es un componente de una tecnología llamada React, que tiene
 - funciones para sumar o restar el contador
 - una parte visual en HTML, definida en la función render
 
-En funcional, un programa es una función o transformación que dado un dominio devuelve una imagen. 
+En funcional, un programa es una función o transformación que dado un dominio devuelve una imagen.
 
 ![images](images/funcional.png)
+
+Lo importante de esta imagen es que **una función siempre va a devolver un solo valor** (perteneciente a la imagen), y que ese valor **depende solamente de los valores ingresados** (pertenecientes al dominio). De esta forma se crea una relación directa entre los elementos del dominio y la imagen.
+
+Para la construcción de interfaces de usuario, dentro del paradigma funcional, 
+el **estado** es la representación abstracta del modelo de la aplicación, y la **vista** se obtiene al aplicar nuestra función con dicho estado. Nuestra función es la encargada de crear los elementos visuales a partir de un estado (o modelo), y si queremos cambiar la vista de la aplicación deberíamos evaluar dicha función con otro estado. 
 
 En React, tenemos como origen un _state_: el estado de una aplicación, que es inicialmente un contador
 
@@ -58,6 +63,6 @@ Vemos el diagrama:
 
 ¿Y por qué **reactiva**?
 
-Porque solo se modifica en el browser el valor que cambió, como vemos a continuación:
+Porque React detecta los cambios, aplica una función que devuelve la **nueva vista** que solo tiene en cuenta lo que se modificó, como vemos a continuación en el Browser (con las herramientas de desarrollo, presionando F12):
 
 ![video](images/demo.gif)
